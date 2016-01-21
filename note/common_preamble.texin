@@ -1,0 +1,164 @@
+% vim:ft=tex
+\documentclass{article}
+
+\usepackage[x11names, rgb, table]{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{snakes,arrows,shapes,automata}
+
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\newcommand{\cmark}{\cellcolor{green!25}\ding{51}}%
+\newcommand{\xmark}{\cellcolor{red!25}\ding{55}}%
+
+\usepackage{algpseudocode}
+\usepackage{algorithmicx}
+\usepackage{algorithm}
+
+%\usepackage{gensymb}
+\usepackage{siunitx}
+\sisetup{alsoload=chemeng,alsoload=synchem}
+\newunit{\poise}{P}
+\newunit{\dyne}{dyn}
+\newunit{\poundal}{pdl}
+\newunit{\foot}{ft}
+\newunit{\lbm}{lbm}
+\newunit{\lbf}{lbf}
+\newunit{\rankine}{\degree R}
+\newunit{\fahrenheit}{\degree F}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[defblank]{paralist}
+\usepackage{mdwlist}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{float}
+\usepackage{longtable}
+%\usepackage{subfig}	%% no longer use this
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[normalem]{ulem}
+\usepackage{setspace}
+\usepackage{calc}
+%\usepackage{geometry}
+\usepackage{xfrac}
+
+\usepackage[english,iso]{isodate}
+\usepackage{fancybox}
+\numberwithin{equation}{section}
+\usepackage{multirow}
+\usepackage[toc,page]{appendix}
+
+\usepackage[version=3]{mhchem}
+\usepackage[stable]{footmisc}
+
+\usepackage{cancel}
+
+\usepackage{wrapfig}
+
+\usepackage{color}
+\usepackage{ifpdf}
+\ifpdf%
+	\DeclareGraphicsRule{*}{mps}{*}{} % for pdflatex and 'eps' for latex.
+\fi
+
+\usepackage{listings}
+\lstset{%
+breaklines=true,breakatwhitespace=true,mathescape=false,%
+tabsize=2,showstringspaces=false,%
+frame=trBL}
+
+\usepackage{hyperref}
+\hypersetup{%
+colorlinks=true,%
+pdfauthor={TODO Mughal, Zakariyya},%
+pdftitle={TODO}%
+}
+\usepackage[all]{hypcap}
+
+\DeclareMathOperator{\trace}{tr}
+\DeclareMathOperator{\linspan}{span}
+\DeclareMathOperator{\nullspace}{N}
+\DeclareMathOperator{\rangespace}{R}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\sinc}{sinc}
+\DeclareMathOperator{\support}{supp}
+\DeclareMathOperator*{\argmax}{\arg\!\min}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+
+%\usepackage{steinmetz}
+\newcommand{\phase}[1]{\angle{}#1}
+
+\def\abs#1{\left| #1 \right|}	% use instead of $|x|$
+\def\norm#1{\left\| #1 \right\|}% use instead of $\|x\|$
+\newcommand{\dd}{\mathrm{d}}	% \dd x
+\newcommand{\idd}{\; \dd}	% \int x \idd x
+\newcommand{\cross}{\times}
+\newcommand{\ppartial}[2]{\frac{\partial{}#1}{\partial{}#2}}
+\newcommand{\checkequals}{\overset{\checkmark}{=}}
+\newcommand{\slfrac}[2]{{#1}/{#2}}
+\newcommand{\udfrac}[2]{{}^{#1}\!/_{\!#2}}
+
+\newcommand{\kroneckerdelta}{\delta}
+\newcommand{\Sreal}{\ensuremath{\mathbb{R}}}
+\newcommand{\Scomplex}{\ensuremath{\mathbb{C}}}
+\newcommand{\Snatural}{\ensuremath{\mathbb{N}}}
+\newcommand{\Sinteger}{\ensuremath{\mathbb{Z}}}
+\newcommand{\Srational}{\ensuremath{\mathbb{Q}}}
+\newcommand{\Sirrational}{\ensuremath{\mathbb{J}}}
+
+\newcommand{\realpart}[1]{\ensuremath{\mathfrak{R}\left\{#1\right\}}}
+\newcommand{\imagpart}[1]{\ensuremath{\mathfrak{I}\left\{#1\right\}}}
+
+\newcommand{\del}{\nabla}
+\newcommand{\grad}{\del}
+\DeclareMathOperator{\divergence}{div}
+\DeclareMathOperator{\curl}{curl}
+
+\newcommand{\tens}[1]{\uline{#1}}	% tensor
+\newcommand{\vect}[1]{\uline{#1}}	% vector
+\newcommand{\mathiff}{\ensuremath{\mathrm{\ iff\ }}} % iff as text
+\newcommand{\mathif}{\ensuremath{\mathrm{\ if\ }}} % if as text
+\newcommand{\mathfor}{\ensuremath{\mathrm{\ for\ }}} % if as text
+\newcommand{\Wlog}{\ensuremath{\mathrm{\ WLOG\ }}}
+
+\newcommand{\inprod}[2]{\ensuremath{\left\langle#1,#2\right\rangle}}
+\newcommand{\conj}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\into}{\ensuremath{\rightarrow}}
+\newcommand{\transpose}[1]{\ensuremath{{#1}^{\mathrm{T}}}}
+
+\newcommand{\FourierTrans}[1]{\ensuremath{\mathcal{F}\left\{#1\right\}}}
+\newcommand{\IFourierTrans}[1]{\ensuremath{\mathcal{F}^{-1}\left\{#1\right\}}}
+
+\newcommand{\Chi}{\ensuremath{X}}
+
+ % for in between the lines of tables, matrices, arrays, etc.
+\newcommand{\extravertspace}[1]{\vphantom{\rule{0pt}{#1}}}
+
+%% Used to indent a block
+\usepackage{changepage}
+\newenvironment{answer}{\begin{adjustwidth}{1.5em}{}}{\end{adjustwidth}}
+%% alternative
+%\usepackage{framed}
+%\newenvironment{answer}{\begin{framed}}{\end{framed}}
+
+\newcommand{\hr}{\ifx\HCode\Undef%
+\par\centerline{\line(1,0){250}}%
+\else%
+\HCode{<hr width="50\%" align="center" style="width:50\%;float:center;" />}%
+\fi}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+%\newcounter{qcount}
+%\begin{list}{\arabic{qcount}.}
+%{\usecounter{qcount}
+%\setlength{\leftmargin}{\rightmargin}}
+%\end{list}
+
+
+%\begin{enumerate}[label=\alph*)]
+%\end{enumerate}
+%\begin{enumerate}[label=\roman*)]
+%\end{enumerate}
